@@ -1,4 +1,7 @@
-
+# merkle_hellman/decrypt.py
+# ----------------------------------
+# Merkle–Hellman Decryption
+# ----------------------------------
 
 import math
 
@@ -15,18 +18,19 @@ def mod_inverse(r, q):
 
 def decrypt(ciphertext, private_key):
     """
-    Decrypt ciphertext using the Merkle–Hellman private key
+    Decrypts a Merkle–Hellman ciphertext.
+    Returns a list of bits (length 8).
     """
 
     w, q, r = private_key
 
-    # 1. Compute modular inverse of r
+    # 1. Compute r inverse
     r_inv = mod_inverse(r, q)
 
     # 2. Undo modular multiplication
     s = (ciphertext * r_inv) % q
 
-    # 3. Solve superincreasing knapsack (greedy)
+    # 3. Solve super-increasing knapsack
     bits = [0] * len(w)
 
     for i in range(len(w) - 1, -1, -1):

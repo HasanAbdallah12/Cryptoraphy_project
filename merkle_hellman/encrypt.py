@@ -1,17 +1,22 @@
-def encrypt(bits, public_key):
-    # Check that both lists have the same length
-    if len(bits) != len(public_key):
-        print("Error: bits and public key must be the same length")
-        return None
+# merkle_hellman/encrypt.py
+# ----------------------------------
+# Merkle–Hellman Encryption
+# ----------------------------------
 
-    # Start with no sum
+
+def encrypt(bits, public_key):
+    """
+    Encrypts a list of bits using Merkle–Hellman public key.
+    bits MUST be length 8.
+    """
+
+    if len(bits) != len(public_key):
+        raise ValueError("Bits length must match public key length")
+
     ciphertext = 0
 
-    # Go through the lists one index at a time
     for i in range(len(bits)):
-        # If the bit is 1, add the matching public key value
         if bits[i] == 1:
-            ciphertext = ciphertext + public_key[i]
+            ciphertext += public_key[i]
 
-    # Return the final sum
     return ciphertext
